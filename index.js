@@ -19,10 +19,7 @@ app.get('/', (req, res) => {
 
 async function connectToMongoDB() {
     try {
-        await mongoose.connect((MONGO_URI), { 
-            useNewUrlParser: true, 
-            useUnifiedTopology: true
-        });
+        await mongoose.connect((MONGO_URI));
         console.log('Express app connected to MongoDB');
         app.listen(PORT, () => {
             console.log(`Express app listening on port ${PORT}`)

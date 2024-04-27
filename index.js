@@ -6,7 +6,8 @@ const cors = require('cors');
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.mogoDBUri;
+const MONGO_URI = process.env.mongoDBUri;
+const DBNAME = process.env.DBNAME;
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
 
 async function connectToMongoDB() {
     try {
-        await mongoose.connect((MONGO_URI));
+        await mongoose.connect((MONGO_URI),{DBNAME});
         console.log('Express app connected to MongoDB');
         app.listen(PORT, () => {
             console.log(`Express app listening on port ${PORT}`)

@@ -1,33 +1,27 @@
-const dotenv = require('dotenv');
 const express = require('express'); 
-const mongoose = require('mongoose');
-const cors = require('cors');   
-
+const cors = require('cors');
+const db = require('./database/db')
+const dotenv = require('dotenv');
 dotenv.config();
+
+
+
+
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.mongoDBUri;
 const DBNAME = process.env.DBNAME;
 
-const app = express();
+db.connectToMongoDB(app,PORT,MONGO_URI,DBNAME);
 
 app.use(cors());
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World');
     }
 );
 
-async function connectToMongoDB() {
-    try {
-        await mongoose.connect((MONGO_URI),{DBNAME});
-        console.log('Express app connected to MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Express app listening on port ${PORT}`)
-        })            
-    } catch (error) {
-        console.error('Could not connect to MongoDB', error);
-    }
-  }    
-  
-connectToMongoDB();
+

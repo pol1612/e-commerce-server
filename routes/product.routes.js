@@ -1,11 +1,17 @@
 const product = require('../database/models/product');
 const app = require('express');
-const product_controller = require('../controllers/product.controller');
+const productController = require('../controllers/product.controller');
 const router = app.Router()
 
 
-router.post('/product', product_controller.product_create);
+router.post('/products', productController.createProduct)
 
-router.get("/product", product_controller.product_get_all)
+router.get("/products", productController.getAllProducts)
+
+router.get("/products/:id", productController.getProductById)
+
+router.put("/products/:id", productController.updateProduct)
+
+router.delete("/products/:id", productController.deleteProduct)
 
 module.exports = router;

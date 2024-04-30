@@ -15,41 +15,60 @@ const createProduct = async (req, res) => {
         thumbnail: req.body.thumbnail,
         images: req.body.images,
     });
+    let createdProductId
     try{
-        await Product.create(newProduct);
+        const createdProduct = await Product.create(newProduct);
+        createdProductId = createdProduct['_id']
     }
     catch(err){
-        res.status(400).send({})
+        res.status(500).send({})
     }
 
-    res.send("Product saved to the database !");
+    if(createdProductId != null){
+        res.send(JSON.stringify(createdProductId.toString()));
+    }else{
+        res.status(400).send({})
+    }
 }
 
 const getAllProducts = async (req, res) => {
+    let productsList
     try {
-        const products_list = await Product.find()
+        productsList = await Product.find()
     }
     catch(err){
         res.status(404).send({})
     }
-    res.send(JSON.stringify(products_list))
+
+    if(productsList != null){
+        res.send(JSON.stringify(productsList))
+    }else{
+        res.status(400).send({})
+    }
 }
 const getProductById =async (req, res) => {
     const id = req.params.id
-
+    let product
     try {
-        const product = await Product.findById(id)
+        product = await Product.findById(id)
 
     }catch(err){
         res.status(404).send({})
     }
-    res.send(JSON.stringify(product))
+
+    if(product != null){
+
+        res.send(JSON.stringify(product))
+    }else{
+        res.status(400).send({})
+    }
 }
 const updateProduct = async (req, res) => {
     const productId = req.params.id
     const productNewValues = req.body
+    let updatedProduct
     try{
-        const updatedProduct = await Product.findByIdAndUpdate(productId,
+        updatedProduct = await Product.findByIdAndUpdate(productId,
             {
                 productNewValues
             }
@@ -58,15 +77,28 @@ const updateProduct = async (req, res) => {
     }catch (e) {
         res.status(400).send({})
     }
-    res.send(JSON.stringify(updateProduct))
+
+    if(updatedProduct != null){
+        res.send(JSON.stringify(updatedProduct))
+    }else{
+        res.status(400).send({})
+
+    }
 }
 const deleteProduct = async (req, res) => {
     const productId = req.params.id
+    let deletedProduct
     try{
-        const deletedProduct = await Product.findByIdAndDelete(productId)
+        deletedProduct = await Product.findByIdAndDelete(productId)
     }catch (e) {
         res.status(404).send({})
     }
-    res.send(JSON.stringify(deleteProduct))
+
+    if(deletedProduct != null){
+        res.send(JSON.stringify(deletedProduct))
+    }else{
+        res.status(400).send({})
+
+    }
 }
 module.exports = { createProduct,getAllProducts, getProductById, updateProduct, deleteProduct}

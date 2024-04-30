@@ -3,7 +3,9 @@
 const Product = require('../database/models/product');
 
 const createProduct = async (req, res) => {
-    const newProduct = new Product({
+    const newProductValues = req.body
+    let isProductValid = validateProductSchema(newProductValues)
+    /*const newProduct = new Product({
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
@@ -14,15 +16,22 @@ const createProduct = async (req, res) => {
         category: req.body.category,
         thumbnail: req.body.thumbnail,
         images: req.body.images,
-    });
+    });*/
     let createdProductId
     try{
-        const createdProduct = await Product.create(newProduct);
-        createdProductId = createdProduct['_id']
+        if(isProductValid){
 
-        if(createdProductId != null){
-            res.send(JSON.stringify(createdProductId.toString()));
-        }else{
+
+            const createdProduct = await Product.create(newProductValues);
+            createdProductId = createdProduct['_id']
+
+            if(createdProductId){
+                res.send(JSON.stringify(createdProductId.toString()));
+            }else{
+                res.status(400).send({})
+            }
+        }
+        else {
             res.status(400).send({})
         }
     }
@@ -39,7 +48,7 @@ const getAllProducts = async (req, res) => {
 
         productsList = await Product.find()
 
-        if(productsList != null){
+        if(productsList){
             res.send(JSON.stringify(productsList))
         }else{
             res.status(400).send({})
@@ -57,7 +66,7 @@ const getProductById =async (req, res) => {
     try {
         product = await Product.findById(id)
 
-        if(product != null){
+        if(product){
 
             res.send(JSON.stringify(product))
         }else{
@@ -73,22 +82,19 @@ const updateProduct = async (req, res) => {
     const productId = req.params.id
     const productNewValues = req.body
     const isUpdateValid = validateProductSchema(productNewValues)
-    let updatedProduct
     try{
         if (isUpdateValid){
-            updatedProduct = await Product.findByIdAndUpdate(productId,
-                {
-                    productNewValues
+            const updatedProduct = await Product.findByIdAndUpdate(
+                productId,
+                productNewValues,
+                {new: true}
+                )
+                if (updatedProduct) {
+                    res.send(JSON.stringify(updatedProduct))
+                } else {
+                    res.status(404).send({})
                 }
-            )
-
-            if(updatedProduct != null){
-                res.send(JSON.stringify(updatedProduct))
             }
-            else{
-                res.status(400).send({})
-            }
-        }
         else{
             res.status(400).send({})
         }
@@ -96,7 +102,6 @@ const updateProduct = async (req, res) => {
     }catch (e) {
         res.status(500).send({})
     }
-
 }
 const deleteProduct = async (req, res) => {
     const productId = req.params.id
@@ -104,25 +109,38 @@ const deleteProduct = async (req, res) => {
     try{
         deletedProduct = await Product.findByIdAndDelete(productId)
 
-        if(deletedProduct != null){
+        if(deletedProduct){
             res.send(JSON.stringify(deletedProduct))
         }else{
-            res.status(400).send({})
+            res.status(404).send({})
         }
 
     }catch (e) {
         res.status(500).send({})
     }
-
-
 }
 
 function validateProductSchema(productData) {
-    const allowedFields = ['title', 'description', 'price', 'discountPercentage', 'rating', 'stock', 'brand', 'category', 'thumbnail'];
+    const allowedFields = [
+        "title",
+        "description",
+        "price",
+        "discountPercentage",
+        "rating",
+        "stock",
+        "brand",
+        "category",
+        "thumbnail",
+    ]
     const receivedFields = Object.keys(productData);
     let isValid = false
     if(receivedFields.length !== 0){
-        isValid = receivedFields.every(field => allowedFields.includes(field));
+
+        isValid = allowedFields.every(field =>{
+            let isFieldInRequest = receivedFields.includes(field)
+            return isFieldInRequest
+
+        } )
     }
     return isValid
 }

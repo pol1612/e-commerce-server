@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const database = require('./database/db')
 const dotenv = require('dotenv');
-const routes = require('./routes/product.routes');
+const productRoutes = require('./routes/product.routes');
+const userRoutes = require('./routes/user.routes');
 
 dotenv.config();
 
@@ -21,11 +22,9 @@ app.listen(PORT, () => {
 app.use(cors());
 
 app.use(express.json());
-app.use(routes);
+app.use(productRoutes);
+app.use(userRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-    }
-);
+
 
 

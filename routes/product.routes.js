@@ -1,4 +1,3 @@
-const product = require('../database/models/product');
 const app = require('express');
 const productController = require('../controllers/product.controller');
 const router = app.Router()

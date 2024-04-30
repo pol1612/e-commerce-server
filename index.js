@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.mongoDBUri;
 const DBNAME = process.env.DBNAME;
 
-database.connectToMongoDB(app,PORT,MONGO_URI,DBNAME);
+database.connectToMongoDB(MONGO_URI,DBNAME);
+
+app.listen(PORT, () => {
+  console.log(`Express app listening on port ${PORT}`)
+})
 
 app.use(cors());
 

@@ -9,7 +9,7 @@ function isRequestAuthenticated(req, res, next) {
     if (!authHeader) {
         req.isAuth = false;
         console.log("no auth header");
-        return next();
+        return res.status(401).send({error: "Unauthorized"});
     }
 
     const token = authHeader.split(" ")[1];
@@ -18,7 +18,7 @@ function isRequestAuthenticated(req, res, next) {
 
             console.log("no token");
             req.isAuth = false
-            return next();
+            return res.status(401).send({error: "Unauthorized"})
         }
     }
 
@@ -28,12 +28,12 @@ function isRequestAuthenticated(req, res, next) {
         req.isAuth = true;
         //req.isAuth = true;
         console.log("token valid")
-        next();
+        return next();
     } catch (ex) {
         req.isAuth = false;
         //req.isAuth = false;
         console.log("token invalid "+ex);
-        next();
+        return next();
     }
 }
 

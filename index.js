@@ -4,7 +4,8 @@ const database = require('./database/db')
 const dotenv = require('dotenv');
 const productRoutes = require('./routes/product.routes');
 const userRoutes = require('./routes/user.routes');
-
+const authenticationRoutes = require('./routes/authentication.routes');
+const isRequestAuthenticated = require('./middlewares/isRequestAuthenticated');
 dotenv.config();
 
 const app = express();
@@ -20,8 +21,10 @@ app.listen(PORT, () => {
 })
 
 app.use(cors());
-
 app.use(express.json());
+//endpoints
+app.use(authenticationRoutes)
+app.use(isRequestAuthenticated);
 app.use(productRoutes);
 app.use(userRoutes);
 

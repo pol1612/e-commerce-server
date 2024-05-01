@@ -3,18 +3,21 @@ const jwt = require( "jsonwebtoken")
 const dotenv = require("dotenv")
 dotenv.config();
 
-function isAuth(req, res, next) {
+function isRequestAuthenticated(req, res, next) {
+    console.log("request middleware running")
     const authHeader = req.get("Authorization");
     if (!authHeader) {
-        req.isAuthenticated = false;
+        req.isAuth = false;
+        console.log("no auth header");
         return next();
     }
 
     const token = authHeader.split(" ")[1];
     if (!token || token === "") {
         {
-            //req.isAuth = false;
-            req.isAuthenticated = false
+
+            console.log("no token");
+            req.isAuth = false
             return next();
         }
     }
@@ -22,14 +25,16 @@ function isAuth(req, res, next) {
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
         req.user = decoded;
-        req.isAuthenticated = true;
+        req.isAuth = true;
         //req.isAuth = true;
+        console.log("token valid")
         next();
     } catch (ex) {
-        req.isAuthenticated = false;
+        req.isAuth = false;
         //req.isAuth = false;
+        console.log("token invalid "+ex);
         next();
     }
 }
 
-module.exports = isAuth
+module.exports = isRequestAuthenticated

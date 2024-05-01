@@ -1,22 +1,22 @@
 
-
+const sharedUtils = require('../shared/http.utils');
 const Product = require('../database/models/product');
-
+let allowedFields  = [
+    "title",
+    "description",
+    "price",
+    "discountPercentage",
+    "rating",
+    "stock",
+    "brand",
+    "category",
+    "thumbnail",
+]
 const createProduct = async (req, res) => {
     const newProductValues = req.body
-    let isProductValid = validateProductSchema(newProductValues)
-    /*const newProduct = new Product({
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        discountPercentage: req.body.discountPercentage,
-        rating: req.body.rating,
-        stock: req.body.stock,
-        brand: req.body.brand,
-        category: req.body.category,
-        thumbnail: req.body.thumbnail,
-        images: req.body.images,
-    });*/
+
+    let isProductValid = sharedUtils.validateRequestBodyFields(allowedFields,newProductValues)
+
     let createdProductId
     try{
         if(isProductValid){
@@ -81,7 +81,7 @@ const getProductById =async (req, res) => {
 const updateProduct = async (req, res) => {
     const productId = req.params.id
     const productNewValues = req.body
-    const isUpdateValid = validateProductSchema(productNewValues)
+    const isUpdateValid = sharedUtils.validateRequestBodyFields(allowedFields,productNewValues)
     try{
         if (isUpdateValid){
             const updatedProduct = await Product.findByIdAndUpdate(
@@ -120,28 +120,16 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-function validateProductSchema(productData) {
-    const allowedFields = [
-        "title",
-        "description",
-        "price",
-        "discountPercentage",
-        "rating",
-        "stock",
-        "brand",
-        "category",
-        "thumbnail",
-    ]
-    const receivedFields = Object.keys(productData);
-    let isValid = false
-    if(receivedFields.length !== 0){
+allowedFields = [
+    "title",
+    "description",
+    "price",
+    "discountPercentage",
+    "rating",
+    "stock",
+    "brand",
+    "category",
+    "thumbnail",
+]
 
-        isValid = allowedFields.every(field =>{
-            let isFieldInRequest = receivedFields.includes(field)
-            return isFieldInRequest
-
-        } )
-    }
-    return isValid
-}
 module.exports = { createProduct,getAllProducts, getProductById, updateProduct, deleteProduct}

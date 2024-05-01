@@ -4,9 +4,9 @@ const router = app.Router()
 
 router.get("/users/:id", userController.getUserById)
 
-router.post("/users/register", userController.createUserAndGetUserAuthToken)
+router.post("/authentication/register", userController.createUserAndGetUserAuthToken)
 
-router.get("/users/login", userController.getUserAuthToken)
+router.get("/authentication/login", userController.getUserAuthToken)
 
 module.exports = router;
 

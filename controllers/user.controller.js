@@ -3,11 +3,16 @@ const sharedUtils = require('../shared/http.utils');
 const User = require('../database/models/user');
 const bcrypt = require('bcrypt');
 const e = require("express");
-let allowedFields  = [
+const err = require("jsonwebtoken/lib/JsonWebTokenError");
+let registerAllowedFields  = [
     "username",
     "email",
     "password",
     "isAdmin"
+]
+let loginAllowedFields  = [
+    "email",
+    "password"
 ]
 
 const getUserById = async (req, res) => {
@@ -21,6 +26,7 @@ const getUserById = async (req, res) => {
                 res.status(404).send({})
             }
         }catch(err){
+            console.log(" getUserById "+err.message.toString())
             res.status(500).send({})
         }
     }else {
@@ -30,7 +36,7 @@ const getUserById = async (req, res) => {
 
 const createUserAndGetUserAuthToken = async (req, res) => {
 
-    let isRequestValid = sharedUtils.validateRequestBodyFields(allowedFields,req.body)
+    let isRequestValid = sharedUtils.validateRequestBodyFields(registerAllowedFields,req.body)
     try {
         if(isRequestValid) {
 
@@ -68,7 +74,7 @@ const createUserAndGetUserAuthToken = async (req, res) => {
             res.status(400).send({})
         }
     }catch(err){
-        console.log(err.message.toString())
+        console.log(" createUserAndGetUserAuthToken "+err.message.toString())
         res.status(500).send({})
     }
 }
@@ -102,23 +108,9 @@ const getUserAuthToken = async (req, res) => {
         }
 
     }catch (e) {
+        console.log(" getUserAuthToken "+err.message.toString())
         res.status(500).send({})
     }
 
-}
-function validateUserValues(body){
-    const allowedFields = [
-        "username",
-        "email",
-        "password",
-        "isAdmin"
-    ]
-    const receivedFields = Object.keys(body);
-    let isValid = false;
-    if(receivedFields.length !== 0){
-        isValid = allowedFields.every(field =>{
-            let isFieldInrrquest
-        })
-    }
 }
 module.exports = {getUserById, createUserAndGetUserAuthToken, getUserAuthToken}

@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const database = require('./database/db')
 const dotenv = require('dotenv');
+
 const productRoutes = require('./routes/product.routes');
 const userRoutes = require('./routes/user.routes');
 const authenticationRoutes = require('./routes/authentication.routes');
+
 const isRequestAuthenticated = require('./middlewares/isRequestAuthenticated');
 dotenv.config();
 
@@ -19,9 +21,9 @@ database.connectToMongoDB(MONGODB_URI,DB_NAME);
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}`)
 })
-
-app.use(cors());
-app.use(express.json());
+//const asda
+app.use(cors())
+app.use(express.json())
 //endpoints
 app.use("/api/v1",authenticationRoutes)
 app.use(isRequestAuthenticated);

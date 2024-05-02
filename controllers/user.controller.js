@@ -81,6 +81,7 @@ const createUserAndGetUserAuthToken = async (req, res) => {
 
 const getUserAuthToken = async (req, res) => {
     try{
+        console.log("getUserAuthToken method body: ");
         console.log(req.body);
         const user = await User.findOne({ email: req.body.email });
 
@@ -108,7 +109,7 @@ const getUserAuthToken = async (req, res) => {
         }
 
     }catch (e) {
-        console.log(" getUserAuthToken "+err.message)
+        console.log(" getUserAuthToken "+e.message.toString())
         res.status(500).send({})
     }
 

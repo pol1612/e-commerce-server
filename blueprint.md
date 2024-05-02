@@ -1,34 +1,22 @@
-<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#api-backend-with-express-mongodb-and-authentication)
-
-# ➤ API Backend with Express, MongoDB, and Authentication
+# API Backend with Express, MongoDB, and Authentication
 
 This is a RESTful API backend built using Express.js, MongoDB, and authentication for managing products and users.
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#features)
-
-## ➤ Features
+## Features
 
 - CRUD operations for products
 - User authentication (signup, login)
 - Token-based authentication using JSON Web Tokens (JWT)
 - MongoDB database integration
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#prerequisites)
-
-## ➤ Prerequisites
+## Prerequisites
 
 Before running this project locally, make sure you have the following installed:
 
 - Node.js and npm: [Node.js Official Website](https://nodejs.org/)
 - MongoDB: [MongoDB Official Website](https://www.mongodb.com/)
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#installation)
-
-## ➤ Installation
+## Installation
 
 1. Clone the repository:
 
@@ -59,10 +47,7 @@ Before running this project locally, make sure you have the following installed:
    npm start
    ```
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#api-endpoints)
-
-## ➤ API Endpoints
+## API Endpoints
 
 ### Products
 
@@ -77,10 +62,7 @@ Before running this project locally, make sure you have the following installed:
 - **POST /api/signup**: Register a new user
 - **POST /api/login**: Login user and generate JWT token
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#authentication)
-
-## ➤ Authentication
+## Authentication
 
 This API uses token-based authentication using JSON Web Tokens (JWT). To authenticate requests, include the JWT token in the `Authorization` header of the request:
 
@@ -88,16 +70,10 @@ This API uses token-based authentication using JSON Web Tokens (JWT). To authent
 Authorization: Bearer your-jwt-token
 ```
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#contributing)
-
-## ➤ Contributing
+## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#license)
-
-## ➤ License
+## License
 
 This project is licensed under the [MIT License](LICENSE).

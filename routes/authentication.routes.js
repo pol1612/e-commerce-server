@@ -4,7 +4,7 @@ const router = app.Router()
 
 
 
-router.get("/authentication/login", userController.getUserAuthToken)
+router.post("/authentication/login", userController.getUserAuthToken)
 
 router.post("/authentication/register", userController.createUserAndGetUserAuthToken)
 

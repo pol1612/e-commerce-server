@@ -83,7 +83,7 @@ const getUserAuthToken = async (req, res) => {
     try{
 
         const user = await User.findOne({ email: req.body.email });
-        console.log(user+"  ")
+        console.log(user+"  "+ `${req.body.email.toString()}`)
         if (user) {
 
             const passwordIsValid = await bcrypt.compare(req.body.password, user.password);

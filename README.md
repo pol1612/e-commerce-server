@@ -38,7 +38,7 @@ This project is an Express.js application for managing products and users in an 
 
 
 - **Get User By ID**
-  - **Route:** `POST /api/v1/users/:id`
+  - **Route:** `GET /api/v1/users/:id`
   - **Authentication:** No authentication required
 
 

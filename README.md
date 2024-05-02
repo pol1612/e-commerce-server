@@ -34,11 +34,11 @@ This project is an Express.js application for managing products and users in an 
 
 ## Usage
 
-### Example Requests to the API
+### Example Authentication Requests to the API
 
 
 - **Get User By ID**
-  - **Route:** `POST /api/v1/authentication/login`
+  - **Route:** `POST /api/v1/users/:id`
   - **Authentication:** No authentication required
 
 
@@ -66,6 +66,9 @@ This project is an Express.js application for managing products and users in an 
       "password": "example_password"
     }
     ```
+
+### Example Products Requests to the API
+
 
 - **Create Product**
   - **Route:** `POST /api/v1/products`

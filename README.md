@@ -1,103 +1,123 @@
-<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#api-backend-with-express-mongodb-and-authentication)
+# Project E-Commerce Api
 
-# ➤ API Backend with Express, MongoDB, and Authentication
+## Overview
+This project is an Express.js application for managing products and users in an e-commerce system. It provides endpoints for creating, retrieving, updating, and deleting products, as well as user authentication and registration.
 
-This is a RESTful API backend built using Express.js, MongoDB, and authentication for managing products and users.
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#features)
-
-## ➤ Features
-
-- CRUD operations for products
-- User authentication (signup, login)
-- Token-based authentication using JSON Web Tokens (JWT)
-- MongoDB database integration
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#prerequisites)
-
-## ➤ Prerequisites
-
-Before running this project locally, make sure you have the following installed:
-
-- Node.js and npm: [Node.js Official Website](https://nodejs.org/)
-- MongoDB: [MongoDB Official Website](https://www.mongodb.com/)
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#installation)
-
-## ➤ Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   cd your-repo
-   npm install
-   ```
-
+## Installation
+1. Clone the repository.
+2. Install dependencies using `npm install`.
 3. Set up environment variables:
+  - `PORT`: Port number for the server to listen on.
+  - `MONGODB_URI`: MongoDB connection URI.
+  - `DB_NAME`: Name of the MongoDB database.
+  - `SECRET_KEY`: Secret key for JWT token generation.
+4. Start the server using `npm start`.
 
-   Create a `.env` file in the root directory and add the following variables:
+## Directory Structure
+- `index.js`: Entry point of the application.
+- `controllers/`: Contains controllers for handling product and user operations.
+  - `product.controller.js`: Controller functions for product operations.
+  - `user.controller.js`: Controller functions for user operations.
+- `database/`: Contains files related to database setup.
+  - `db.js`: Establishes connection to MongoDB.
+  - `models/`: Contains Mongoose models for product and user schemas.
+    - `product.js`: Defines the schema for products.
+    - `user.js`: Defines the schema for users.
+- `middlewares/`: Contains custom middleware functions.
+  - `isRequestAuthenticated.js`: Middleware for authenticating requests using JWT tokens.
+- `routes/`: Contains route definitions.
+  - `authentication.routes.js`: Routes for user authentication and registration.
+  - `product.routes.js`: Routes for product CRUD operations.
+  - `user.routes.js`: Routes for user-related operations.
+- `shared/`: Contains utility functions.
+  - `http.utils.js`: Utility function for validating request body fields.
 
-   ```plaintext
-   PORT=3000
-   MONGODB_URI=your-mongodb-connection-string
-   JWT_SECRET=your-jwt-secret
-   ```
+## Usage
 
-4. Start the server:
+### Example Requests to the API
 
-   ```bash
-   npm start
-   ```
+- **Register User**
+  - **Route:** `POST /api/v1/authentication/register`
+  - **Authentication:** No authentication required
+  - **Body:**
+    ```json
+    {
+      "username": "example_username",
+      "email": "example@example.com",
+      "password": "example_password",
+      "isAdmin": false
+    }
+    ```
 
+- **Login User**
+  - **Route:** `GET /api/v1/authentication/login`
+  - **Authentication:** No authentication required
+  - **Body:**
+    ```json
+    {
+      "email": "example@example.com",
+      "password": "example_password"
+    }
+    ```
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#api-endpoints)
+- **Create Product**
+  - **Route:** `POST /api/v1/products`
+  - **Authentication:** Bearer Token required
+  - **Body:**
+    ```json
+    {
+      "title": "example_product",
+      "description": "example_description",
+      "price": 20.99,
+      "discountPercentage": 10,
+      "rating": 4.5,
+      "stock": 100,
+      "brand": "example_brand",
+      "category": "example_category",
+      "thumbnail": "example_thumbnail",
+      "images": "example_images"
+    }
+    ```
 
-## ➤ API Endpoints
+- **Get All Products**
+  - **Route:** `GET /api/v1/products`
+  - **Authentication:** Bearer Token required
 
-### Products
+- **Get Product by ID**
+  - **Route:** `GET /api/v1/products/:id`
+  - **Authentication:** Bearer Token required
 
-- **GET /api/products**: Get all products
-- **GET /api/products/:id**: Get a single product by ID
-- **POST /api/products**: Create a new product
-- **PUT /api/products/:id**: Update a product by ID
-- **DELETE /api/products/:id**: Delete a product by ID
+- **Update Product**
+  - **Route:** `PUT /api/v1/products/:id`
+  - **Authentication:** Bearer Token required
+  - **Body:**
+    ```json
+    {
+      "title": "updated_example_product",
+      "description": "updated_example_description",
+      "price": 25.99,
+      "discountPercentage": 15,
+      "rating": 4.7,
+      "stock": 150,
+      "brand": "updated_example_brand",
+      "category": "updated_example_category",
+      "thumbnail": "updated_example_thumbnail",
+      "images": "updated_example_images"
+    }
+    ```
 
-### Users
+- **Delete Product**
+  - **Route:** `DELETE /api/v1/products/:id`
+  - **Authentication:** Bearer Token required
 
-- **POST /api/signup**: Register a new user
-- **POST /api/login**: Login user and generate JWT token
+## Technologies Used
+- Express.js
+- MongoDB
+- Mongoose
+- JWT (JSON Web Tokens)
+- bcrypt
+- dotenv
+- cors
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#authentication)
-
-## ➤ Authentication
-
-This API uses token-based authentication using JSON Web Tokens (JWT). To authenticate requests, include the JWT token in the `Authorization` header of the request:
-
-```
-Authorization: Bearer your-jwt-token
-```
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#contributing)
-
-## ➤ Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#license)
-
-## ➤ License
-
-This project is licensed under the [MIT License](LICENSE).
+## License
+This project is licensed under the Apache License Version 2.0, January 2004.

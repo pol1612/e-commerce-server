@@ -21,12 +21,12 @@ database.connectToMongoDB(MONGODB_URI,DB_NAME);
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}`)
 })
-//const asda
+
 app.use(cors())
 app.use(express.json())
 //endpoints
 app.use("/api/v1",authenticationRoutes)
-app.use(isRequestAuthenticated);
+//app.use(isRequestAuthenticated);
 app.use("/api/v1",productRoutes);
 app.use("/api/v1",userRoutes);
 

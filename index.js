@@ -26,9 +26,9 @@ app.use(cors())
 app.use(express.json())
 //endpoints
 app.use("/api/v1",authenticationRoutes)
-//app.use(isRequestAuthenticated);
 app.use("/api/v1",productRoutes);
 app.use("/api/v1",userRoutes);
+app.use(isRequestAuthenticated);
 
 
 

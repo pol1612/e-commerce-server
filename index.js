@@ -4,7 +4,6 @@ const database = require('./database/db')
 const dotenv = require('dotenv');
 
 const productRoutes = require('./routes/product.routes');
-const userRoutes = require('./routes/user.routes');
 const authenticationRoutes = require('./routes/authentication.routes');
 
 const isRequestAuthenticated = require('./middlewares/isRequestAuthenticated');
@@ -27,8 +26,6 @@ app.use(express.json())
 //endpoints
 app.use("/api/v1",authenticationRoutes)
 app.use("/api/v1",productRoutes);
-app.use("/api/v1",userRoutes);
-app.use(isRequestAuthenticated);
 
 
 

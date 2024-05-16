@@ -4,6 +4,7 @@ const dotenv = require("dotenv")
 dotenv.config();
 
 function isRequestAuthenticated(req, res, next) {
+
     console.log("request middleware running")
     const authHeader = req.get("Authorization");
     if (!authHeader) {
@@ -33,7 +34,7 @@ function isRequestAuthenticated(req, res, next) {
         req.isAuth = false;
         //req.isAuth = false;
         console.log("token invalid "+ex);
-        return next();
+        return res.status(500).send({error: "Internal server error"});
     }
 }
 

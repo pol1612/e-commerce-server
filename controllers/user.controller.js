@@ -74,8 +74,13 @@ const createUserAndGetUserAuthToken = async (req, res) => {
             res.status(400).send({})
         }
     }catch(err){
-        console.log(" createUserAndGetUserAuthToken "+err.message.toString())
-        res.status(500).send({})
+        if(err.name === "ValidationError") {
+            res.status(400).send({error: "Bad Request, password too short"})
+        }else {
+            console.log(" createUserAndGetUserAuthToken "+err)
+            res.status(500).send({})
+        }
+
     }
 }
 

@@ -60,7 +60,7 @@ const createUserAndGetUserAuthToken = async (req, res) => {
 
                 const data = {
                     token: token,
-                    id: newUser.id,
+                    userId: newUser.id,
                     isAdmin: newUser.isAdmin,
                 };
 

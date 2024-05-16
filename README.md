@@ -38,9 +38,19 @@ This project is an Express.js application for managing products and users in an 
 
 
 - **Get User By ID**
-  - **Route:** `GET /api/v1/users/:id`
-  - **Authentication:** No authentication required
-
+  - **Route:** `GET /api/v1/authentication/:id`
+  - **Authentication:** Bearer Token required
+  - **OK Response:** 
+    ```json
+    {
+      "_id":"66463b4b22ff1349abc37cd1",
+      "username":"username",
+      "email":"example@example.com",
+      "password":"$2b$asdsaadN5qDOeyssdefOfqWAA9wZLpxaqM8AJ1CoEzFfwjLJt2y",
+      "isAdmin":true,
+      "__v":0
+    }
+    ```
 
 
 - **Register User**
@@ -55,6 +65,15 @@ This project is an Express.js application for managing products and users in an 
       "isAdmin": false
     }
     ```
+  - **OK Response:**
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaERiOiI2NjQ2M2Iasdadasdad5YWJjMzdjZDEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTU4OTM1MDR9.--mIMeBDn6DW7bSOm_yN9jDHLjpl5EIwt3LdcWrokNE",
+      "userId": "66463b4b62ff1349abc37cd1",
+      "isAdmin": true
+    }
+    ```
+    
 
 - **Login User**
   - **Route:** `POST /api/v1/authentication/login`
@@ -64,6 +83,14 @@ This project is an Express.js application for managing products and users in an 
     {
       "email": "example@example.com",
       "password": "example_password"
+    }
+    ```
+  - **OK Response:**
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaERiOiI2NjQ2M2Iasdadasdad5YWJjMzdjZDEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTU4OTM1MDR9.--mIMeBDn6DW7bSOm_yN9jDHLjpl5EIwt3LdcWrokNE",
+      "userId": "66463b4b62ff1349abc37cd1",
+      "isAdmin": true
     }
     ```
 

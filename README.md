@@ -115,14 +115,65 @@ This project is an Express.js application for managing products and users in an 
       "images": "example_images"
     }
     ```
+  - **OK Response:** 
+    ```json
+    {
+      "66423a84964b3a07fe38c11b"
+    }
+    ```
 
 - **Get All Products**
   - **Route:** `GET /api/v1/products`
-  - **Authentication:** Bearer Token required
+  - **Authentication:** No authentication required
+  - **OK Response:**
+    ```json
+    [
+      {
+        "_id":"66423cff6f807b464652f8da",
+        "id":2,
+        "title":"iPhone X",
+        "description":"A very useful mobile phone ",
+        "price":899,"discountPercentage":17.94,
+        "rating":4.44,"stock":34,"brand":"Apple",
+        "category":"smartphones",
+        "thumbnail":"https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+        "images":"https://cdn.dummyjson.com/product-images/2/1.jpg"
+      },
+      {
+        "_id":"66423cff6f234b464652f8da",
+        "id":2,
+        "title":"iPhone X",
+        "description":"A very useful mobile phone ",
+        "price":899,"discountPercentage":17.94,
+        "rating":4.44,"stock":34,"brand":"Apple",
+        "category":"smartphones",
+        "thumbnail":"https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+        "images":"https://cdn.dummyjson.com/product-images/2/1.jpg"
+      },
+      ...  
+    ]
+    ```
 
 - **Get Product by ID**
   - **Route:** `GET /api/v1/products/:id`
   - **Authentication:** Bearer Token required
+  - **OK Response:**
+    ```json
+    {
+      "_id":"66423cff6f234b464652f8da",
+      "id":2,
+      "title": "example_product",
+      "description": "example_description",
+      "price": 20.99,
+      "discountPercentage": 10,
+      "rating": 4.5,
+      "stock": 100,
+      "brand": "example_brand",
+      "category": "example_category",
+      "thumbnail": "example_thumbnail",
+      "images": "example_images"
+    }
+    ```
 
 - **Update Product**
   - **Route:** `PUT /api/v1/products/:id`
@@ -142,10 +193,44 @@ This project is an Express.js application for managing products and users in an 
       "images": "updated_example_images"
     }
     ```
+  - **OK Response:**
+    ```json
+    {
+      "_id":"66423cff6f807b464652f8da",
+      "id":2,
+      "title": "updated_example_product",
+      "description": "updated_example_description",
+      "price": 25.99,
+      "discountPercentage": 15,
+      "rating": 4.7,
+      "stock": 150,
+      "brand": "updated_example_brand",
+      "category": "updated_example_category",
+      "thumbnail": "updated_example_thumbnail",
+      "images": "updated_example_images"
+    }
+    ```
 
 - **Delete Product**
   - **Route:** `DELETE /api/v1/products/:id`
   - **Authentication:** Bearer Token required
+  - **OK Response:**
+    ```json
+    {
+      "_id":"66423cff6f807b464652f8da",
+      "id":2,
+      "title": "deleted_example_product",
+      "description": "deleted_example_description",
+      "price": 25.99,
+      "discountPercentage": 15,
+      "rating": 4.7,
+      "stock": 150,
+      "brand": "deleted_example_brand",
+      "category": "deleted_example_category",
+      "thumbnail": "deleted_example_thumbnail",
+      "images": "deleted_example_images"
+    }
+    ```
 
 ## Technologies Used
 - Express.js
